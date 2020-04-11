@@ -66,7 +66,9 @@ def hello():
 
 def get_hello():
     greeting_list = ['Ciao', 'Hei', 'Salut', 'Hola', 'Hallo', 'Hej']
-    return random.choice(greeting_list)
+    # return random.choice(greeting_list)
+    response = {'greeting': random.choice(greeting_list)}
+    return response
 
 
 
