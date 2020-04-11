@@ -22,7 +22,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameName: 'Shoothead',
-      greeting: '',
       value: '',
       players: []
     }
@@ -40,14 +39,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch(url_prefix + 'hello')
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({greeting : data['greeting'] })
-      })
-      .catch(console.log)
-
-
     fetch(url_prefix + 'players')
       .then(res => res.json())
       .then((data) => {
@@ -60,7 +51,6 @@ class App extends React.Component {
     return (
       <div>
         <h1>{this.state.gameName}</h1>
-        <h2>{this.state.greeting}</h2>
         <h2>Players: {this.state.players}</h2>
         <form>
           <label>

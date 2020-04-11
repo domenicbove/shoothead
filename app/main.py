@@ -78,8 +78,6 @@ def get_hello():
     return response
 
 
-
-
 # Frontend needs to Get all players
 # TODO - see their top cards
 @app.route('/players', methods = ['GET'])
@@ -103,6 +101,8 @@ def add_player():
 def deal():
     card_request_object = request.json
     requested_count = card_request_object['count']
+
+    print("Dealing " + str(requested_count) + ' cards. There are ' + str(len(deck)) + ' cards left')
     return_cards = []
     for i in range(requested_count):
         if len(deck) > 0:
@@ -135,6 +135,8 @@ def shuffle():
     deck.extend(range(52))
     random.shuffle(deck)
     return "ok"
+
+shuffle()
 
 if __name__ == '__main__':
     app.run()
