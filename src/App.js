@@ -1,4 +1,5 @@
 import React from 'react';
+import Cards from './Cards';
 
 // TODO some sort of if statement on this
 //var url_prefix = ''
@@ -68,6 +69,8 @@ class App extends React.Component {
           </label>
           <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
+
+        <Cards />
       </div>
     );
   }
