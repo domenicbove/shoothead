@@ -64,18 +64,18 @@ def index():
     return render_template('index.html')
 
 # TODO this is old, but hooks into the front end
-@app.route('/hello') # take note of this decorator syntax, it's a common pattern
-def hello():
-    # It is good practice to only call a function in your route end-point,
-    # rather than have actual implementation code here.
-    # This allows for easier unit and integration testing of your functions.
-    return get_hello()
-
-def get_hello():
-    greeting_list = ['Ciao', 'Hei', 'Salut', 'Hola', 'Hallo', 'Hej']
-    # return random.choice(greeting_list)
-    response = {'greeting': random.choice(greeting_list)}
-    return response
+# @app.route('/hello') # take note of this decorator syntax, it's a common pattern
+# def hello():
+#     # It is good practice to only call a function in your route end-point,
+#     # rather than have actual implementation code here.
+#     # This allows for easier unit and integration testing of your functions.
+#     return get_hello()
+#
+# def get_hello():
+#     greeting_list = ['Ciao', 'Hei', 'Salut', 'Hola', 'Hallo', 'Hej']
+#     # return random.choice(greeting_list)
+#     response = {'greeting': random.choice(greeting_list)}
+#     return response
 
 
 # Frontend needs to Get all players
@@ -125,6 +125,13 @@ def play():
 # Players need the ability to pick up the pile
 @app.route('/pick_up', methods = ['GET'])
 def pick_up():
+    response = {'pile': pile}
+    # should also set pile to empty list
+    return response
+
+# Web frontend needs to know the pile
+@app.route('/pile', methods = ['GET'])
+def get_pile():
     response = {'pile': pile}
     return response
 

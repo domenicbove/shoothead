@@ -1,5 +1,6 @@
 import React from 'react';
 import Cards from './Cards';
+import Pile from './Pile';
 
 // TODO some sort of if statement on this
 //var url_prefix = ''
@@ -61,6 +62,8 @@ class App extends React.Component {
         </form>
 
         <Cards />
+
+        <Pile />
       </div>
     );
   }
