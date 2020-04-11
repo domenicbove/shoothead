@@ -1,7 +1,14 @@
 import random
 from flask import Flask, render_template, json, request
+# Adding cors for development
+# TODO remove in final product since it is all over the same port
+from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__, static_folder='../build/static', template_folder='../build')
+# TODO remove cors stuff
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 deck = []
 players = []
