@@ -2,6 +2,7 @@ Local instructions, prereqs:
 ```
 pip3 install flask gunicorn
 npm install
+npm run build
 ```
 
 Local Deploy:
