@@ -4,19 +4,14 @@ import React from 'react';
 //var url_prefix = ''
 var url_prefix = 'http://localhost:8000/'
 
-function joinGame() {
-    // Simple POST request with a JSON body using fetch
+function joinGame(playerName) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'Dom' })
+        body: JSON.stringify({ name: playerName })
     };
 
     fetch(url_prefix + 'players', requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-          this.setState({players : data['players'] })
-        })
         .catch(console.log)
 }
 
@@ -40,9 +35,7 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    joinGame();
-    event.preventDefault();
+    joinGame(this.state.value);
   }
 
   componentDidMount() {
@@ -68,7 +61,6 @@ class App extends React.Component {
         <h1>{this.state.gameName}</h1>
         <h2>{this.state.greeting}</h2>
         <h2>Players: {this.state.players}</h2>
-        <h2>Value {this.state.value}</h2>
         <form>
           <label>
             Name:
