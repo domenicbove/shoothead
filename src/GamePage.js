@@ -67,14 +67,14 @@ class GamePage extends React.Component {
         ))}
         <h2>Pile: </h2>
         {this.state.pile.map((card) => (
-            <h3>{card}</h3>
+            <h3>{card.rank}{card.suit}</h3>
         ))}
 
         <PickUpPileButton onClick={(i) => this.pickUpPile(i)} />
 
         <h2>Your Hand: </h2>
         {this.state.hand.map((card) => (
-            <h3>{card}</h3>
+            <h3>{card.rank}{card.suit}</h3>
         ))}
 
         <DealButton onClick={(i) => this.deal(i)} />
