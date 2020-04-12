@@ -8,7 +8,6 @@ import GamePage from './GamePage'
 
 
 import App from './App'
-import Users from './users'
 import Contact from './contact'
 
 const routing = (
@@ -17,7 +16,6 @@ const routing = (
       <Route exact path="/" component={LandingPage} />
       <Route path="/game" component={GamePage} />
 
-      <Route path="/users" component={Users} />
       <Route path="/contact" component={Contact} />
     </div>
   </Router>

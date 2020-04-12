@@ -8,6 +8,8 @@ class GamePage extends React.Component {
     super(props);
     this.state = {
       players: [],
+      pile: [],
+      hand: [],
     }
   }
 
@@ -16,6 +18,13 @@ class GamePage extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.setState({players : data['players'] })
+      })
+      .catch(console.log)
+
+    fetch(url_prefix + 'pile')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({pile : data['pile'] })
       })
       .catch(console.log)
   }
@@ -27,6 +36,14 @@ class GamePage extends React.Component {
         <h2>Players In Game: </h2>
         {this.state.players.map((player) => (
             <h3>{player}</h3>
+        ))}
+        <h2>Pile: </h2>
+        {this.state.pile.map((card) => (
+            <h3>{card}</h3>
+        ))}
+        <h2>Your Hand: </h2>
+        {this.state.hand.map((card) => (
+            <h3>{card}</h3>
         ))}
       </div>
     );
