@@ -7,7 +7,7 @@ class GamePage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      players: [],
+      players: {},
       pile: [],
       hand: [],
     }
@@ -17,14 +17,14 @@ class GamePage extends React.Component {
     fetch(url_prefix + 'players')
       .then(res => res.json())
       .then((data) => {
-        this.setState({players : data['players'] })
+        this.setState({players: data })
       })
       .catch(console.log)
 
     fetch(url_prefix + 'pile')
       .then(res => res.json())
       .then((data) => {
-        this.setState({pile : data['pile'] })
+        this.setState({pile: data['pile'] })
       })
       .catch(console.log)
   }
@@ -61,10 +61,12 @@ class GamePage extends React.Component {
     return (
       <div>
         <h1>Game Page</h1>
-        <h2>Players In Game: </h2>
-        {this.state.players.map((player) => (
-            <h3>{player.name} -- Top Cards: {player.topCards}</h3>
-        ))}
+        <h2>Players In Game:</h2>
+
+        {Object.entries(this.state.players).map( ([key, value]) =>
+          <h3>{key} -- Top Cards: {value['topCards']}</h3>
+        )}
+
         <h2>Pile: </h2>
         {this.state.pile.map((card) => (
             <h3>{card.rank}{card.suit}</h3>

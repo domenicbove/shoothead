@@ -11,9 +11,12 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 deck = []
-players = []
+# players = []
+players = {}
+
 max_players = 4
 pile = []
+# Turn can be an index incrementing thru the playerlist
 
 """
 Rules:
@@ -36,14 +39,16 @@ def index():
 
 # Frontend needs to Get all players
 # Dont return sensitive data (ie their hand/bottom cards)
+# curl http://127.0.0.1:8000/players
 @app.route('/players', methods = ['GET'])
 def get_players():
-    non_sensitive_players = []
-    for player in players:
-        non_sensitive_player = {'name': player['name'], 'topCards': player['topCards']}
-        non_sensitive_players = non_sensitive_players + [non_sensitive_player]
-    response = {'players': non_sensitive_players}
-    return response
+    # TODO consider sensitive data, for now lets just return everything to the front end
+    # non_sensitive_players = []
+    # for player in players:
+    #     non_sensitive_player = {'name': player, 'topCards': players[player]['topCards']}
+    #     non_sensitive_players = non_sensitive_players + [non_sensitive_player]
+    # response = {'players': non_sensitive_players}
+    return players
 
 # Frontend needs to create users
 # curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/players -d '{"name":"Dommy"}'
@@ -51,14 +56,10 @@ def get_players():
 def add_player():
     global players
     player_object = request.json
+    print('Adding player ' + player_object['name'])
     if len(players) < max_players:
-        # Confirm the Player Does not already Exist
-        for player in players:
-            if player['name'] == player_object['name']:
-                return "not ok"
-
-        new_player = {'name': player_object['name'], 'bottomCards': [], 'topCards': [], 'hand': []}
-        players = players + [new_player]
+        players[player_object['name']] = {'bottomCards': [], 'topCards': [], 'hand': []}
+        print(players)
     return "ok"
 
 @app.route('/shuffle', methods = ['GET'])
@@ -78,16 +79,18 @@ def shuffle():
     return "ok"
 
 # Front end needs to get n cards from backend
-# curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/deal -d '{"count":6}'
+# curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/deal -d '{"count":6, "player": "dom"}'
 @app.route('/deal', methods = ['POST'])
 def deal():
     card_request_object = request.json
     requested_count = card_request_object['count']
+    player_name = card_request_object['player']
 
-    print("Dealing " + str(requested_count) + ' cards. There are ' + str(len(deck)) + ' cards left')
+    print("Dealing " + str(requested_count) + ' cards. There are ' + str(len(deck)) + ' cards left for player ' + player_name)
     return_cards = []
     for i in range(requested_count):
         if len(deck) > 0:
+            player
             return_cards = return_cards + [deck.pop()]
     response = {'deal': return_cards}
     return response
@@ -122,14 +125,6 @@ def pick_up():
 def get_pile():
     response = {'pile': pile}
     return response
-
-
-
-
-
-
-
-
 
 shuffle()
 

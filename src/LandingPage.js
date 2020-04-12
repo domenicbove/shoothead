@@ -7,7 +7,7 @@ class LandingPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      players: [],
+      players: {},
       value: ''
     }
 
@@ -19,7 +19,7 @@ class LandingPage extends React.Component {
     fetch(url_prefix + 'players')
       .then(res => res.json())
       .then((data) => {
-        this.setState({players : data['players'] })
+        this.setState({players: data })
       })
       .catch(console.log)
   }
@@ -46,9 +46,11 @@ class LandingPage extends React.Component {
       <div>
         <h1>ShootHead Landing Page</h1>
         <h2>Players Waiting:</h2>
-        {this.state.players.map((player) => (
-            <h3>{player.name}</h3>
-        ))}
+
+        {Object.entries(this.state.players).map( ([key, value]) =>
+          <h3>{key}</h3>
+        )}
+
         <h2>Enter Game</h2>
         <form>
           <input placeholder="Enter Name" type="name" value={this.state.value} onChange={this.handleChange} />

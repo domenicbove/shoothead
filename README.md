@@ -1,12 +1,18 @@
 Local instructions, prereqs:
 ```
-pip3 install flask gunicorn
+pip3 install flask gunicorn flask_cors
 npm install
 npm run build
 ```
 
 Local Deploy:
 ```
+gunicorn wsgi:app
+```
+
+For Development, use two terminals and run in each:
+```
+npm start
 gunicorn wsgi:app
 ```
 
