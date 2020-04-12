@@ -24,7 +24,10 @@ class GamePage extends React.Component {
     return (
       <div>
         <h1>Game Page</h1>
-        <h2>Players In Game: {this.state.players}</h2>
+        <h2>Players In Game: </h2>
+        {this.state.players.map((player) => (
+            <h3>{player}</h3>
+        ))}
       </div>
     );
   }
