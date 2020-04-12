@@ -63,7 +63,7 @@ class GamePage extends React.Component {
         <h1>Game Page</h1>
         <h2>Players In Game: </h2>
         {this.state.players.map((player) => (
-            <h3>{player}</h3>
+            <h3>{player.name} -- Top Cards: {player.topCards}</h3>
         ))}
         <h2>Pile: </h2>
         {this.state.pile.map((card) => (

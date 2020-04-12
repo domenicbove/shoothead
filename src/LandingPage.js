@@ -45,7 +45,11 @@ class LandingPage extends React.Component {
     return (
       <div>
         <h1>ShootHead Landing Page</h1>
-        <h2>Players Waiting: {this.state.players}</h2>
+        <h2>Players Waiting:</h2>
+        {this.state.players.map((player) => (
+            <h3>{player.name}</h3>
+        ))}
+        <h2>Enter Game</h2>
         <form>
           <input placeholder="Enter Name" type="name" value={this.state.value} onChange={this.handleChange} />
           <button onClick={this.handleSubmit}>Join Game</button>

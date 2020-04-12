@@ -29,11 +29,37 @@ otherwise card MUST be greater than top card
 # TODO make api for picking up the pile
 """
 
-# TODO keep track of turn, should be some sort of modulo around the player list
-
+# Serves up the Web Frontend
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# Frontend needs to Get all players
+# Dont return sensitive data (ie their hand/bottom cards)
+@app.route('/players', methods = ['GET'])
+def get_players():
+    non_sensitive_players = []
+    for player in players:
+        non_sensitive_player = {'name': player['name'], 'topCards': player['topCards']}
+        non_sensitive_players = non_sensitive_players + [non_sensitive_player]
+    response = {'players': non_sensitive_players}
+    return response
+
+# Frontend needs to create users
+# curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/players -d '{"name":"Dommy"}'
+@app.route('/players', methods = ['POST'])
+def add_player():
+    global players
+    player_object = request.json
+    if len(players) < max_players:
+        # Confirm the Player Does not already Exist
+        for player in players:
+            if player['name'] == player_object['name']:
+                return "not ok"
+
+        new_player = {'name': player_object['name'], 'bottomCards': [], 'topCards': [], 'hand': []}
+        players = players + [new_player]
+    return "ok"
 
 @app.route('/shuffle', methods = ['GET'])
 def shuffle():
@@ -99,22 +125,7 @@ def get_pile():
 
 
 
-# Frontend needs to Get all players
-# TODO - see their top cards
-@app.route('/players', methods = ['GET'])
-def get_players():
-    response = {'players': players}
-    return response
 
-# Frontend needs to create users
-# curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/players -d '{"name":"Dommy"}'
-@app.route('/players', methods = ['POST'])
-def add_player():
-    global players
-    player_object = request.json
-    if player_object['name'] not in players and len(players) < max_players:
-        players = players + [player_object['name']]
-    return get_players()
 
 
 
