@@ -30,7 +30,7 @@ class GamePage extends React.Component {
   }
 
   deal = () => {
-    console.log('The link was clicked.');
+    console.log('The Deal button was clicked.');
 
     const requestOptions = {
       method: 'POST',
@@ -42,6 +42,17 @@ class GamePage extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.setState({hand : data['deal'] })
+      })
+      .catch(console.log)
+  }
+
+  pickUpPile = () => {
+    console.log('The pick up pile button was clicked.');
+
+    fetch(url_prefix + 'pick_up')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({hand : this.state.hand.concat(data['pile']) })
       })
       .catch(console.log)
   }
@@ -58,6 +69,9 @@ class GamePage extends React.Component {
         {this.state.pile.map((card) => (
             <h3>{card}</h3>
         ))}
+
+        <PickUpPileButton onClick={(i) => this.pickUpPile(i)} />
+
         <h2>Your Hand: </h2>
         {this.state.hand.map((card) => (
             <h3>{card}</h3>
@@ -74,6 +88,14 @@ function DealButton(props) {
   return (
     <button type="button" onClick={props.onClick}>
     Deal 6
+    </button>
+  );
+}
+
+function PickUpPileButton(props) {
+  return (
+    <button type="button" onClick={props.onClick}>
+    Pick Up Pile
     </button>
   );
 }
