@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 import LandingPage from './LandingPage'
 import GamePage from './GamePage'
 
 
-import App from './App'
+// import App from './App'
 
 const routing = (
   <Router>

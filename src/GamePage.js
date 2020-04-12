@@ -29,6 +29,23 @@ class GamePage extends React.Component {
       .catch(console.log)
   }
 
+  deal = () => {
+    console.log('The link was clicked.');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'count': 6 })
+    };
+
+    fetch(url_prefix + 'deal', requestOptions)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({hand : data['deal'] })
+      })
+      .catch(console.log)
+  }
+
   render() {
     return (
       <div>
@@ -45,9 +62,21 @@ class GamePage extends React.Component {
         {this.state.hand.map((card) => (
             <h3>{card}</h3>
         ))}
+
+        <DealButton onClick={(i) => this.deal(i)} />
+
       </div>
     );
   }
 }
+
+function DealButton(props) {
+  return (
+    <button type="button" onClick={props.onClick}>
+    Deal 6
+    </button>
+  );
+}
+
 
 export default GamePage
