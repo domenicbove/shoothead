@@ -90,10 +90,10 @@ def deal():
     return_cards = []
     for i in range(requested_count):
         if len(deck) > 0:
-            player
-            return_cards = return_cards + [deck.pop()]
-    response = {'deal': return_cards}
-    return response
+            players[player_name]['hand'] += [deck.pop()]
+            # return_cards = return_cards + [deck.pop()]
+    # response = {'deal': return_cards}
+    return "ok"
 
 # Players need to play a card on the pile and either in the front or back validation of that play needs to happen
 # Front end makes some sense since front end should know the top card on the pile, maybe both...

@@ -10,6 +10,7 @@ class GamePage extends React.Component {
       players: {},
       pile: [],
       hand: [],
+      testCard: {'rank': '3', 'suit': 'clubs'}
     }
   }
 
@@ -63,8 +64,8 @@ class GamePage extends React.Component {
         <h1>Game Page</h1>
         <h2>Players In Game:</h2>
 
-        {Object.entries(this.state.players).map( ([key, value]) =>
-          <h3>{key} -- Top Cards: {value['topCards']}</h3>
+        {Object.entries(this.state.players).map( ([key, value] ) =>
+          <h3>{key} -- Top Cards: {value['topCards']} -- Hand:</h3>
         )}
 
         <h2>Pile: </h2>
@@ -74,16 +75,22 @@ class GamePage extends React.Component {
 
         <PickUpPileButton onClick={(i) => this.pickUpPile(i)} />
 
-        <h2>Your Hand: </h2>
-        {this.state.hand.map((card) => (
-            <h3>{card.rank}{card.suit}</h3>
-        ))}
-
         <DealButton onClick={(i) => this.deal(i)} />
+
+
+        <Card card='hia' />
 
       </div>
     );
   }
+}
+
+function Card(props) {
+  return (
+    <div>
+      <h3>{props.card}</h3>
+    </div>
+  );
 }
 
 function DealButton(props) {

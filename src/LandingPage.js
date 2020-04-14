@@ -8,6 +8,7 @@ class LandingPage extends React.Component {
     super(props);
     this.state = {
       players: {},
+      enteredGame: false,
       value: ''
     }
 
@@ -38,7 +39,7 @@ class LandingPage extends React.Component {
     fetch(url_prefix + 'players', requestOptions)
         .catch(console.log)
 
-    this.props.history.push('/game')
+    // this.props.history.push('/game')
   }
 
   render() {
@@ -56,9 +57,25 @@ class LandingPage extends React.Component {
           <input placeholder="Enter Name" type="name" value={this.state.value} onChange={this.handleChange} />
           <button onClick={this.handleSubmit}>Join Game</button>
         </form>
+
+        <EnterGameForm onClick={(i) => this.handleSubmit(i)}/>
+
       </div>
     );
   }
 }
+
+function EnterGameForm(props) {
+  return (
+    <div>
+      <h2>Enter Game</h2>
+      <form>
+        <input placeholder="Enter Name" type="name" />
+        <button onClick={props.onClick}>Join Game</button>
+      </form>
+    </div>
+  );
+}
+
 
 export default LandingPage
