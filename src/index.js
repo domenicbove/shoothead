@@ -39,6 +39,14 @@ class ShootHeadGame extends React.Component {
   }
 
   componentDidMount() {
+    this.timer = setInterval(()=> this.getItems(), 1000);
+  }
+
+  componentWillUnmount() {
+    this.timer = null;
+  }
+
+  getItems() {
     fetch(url_prefix + 'players')
       .then(res => res.json())
       .then((data) => {
