@@ -92,11 +92,8 @@ class ShootHeadGame extends React.Component {
 
 function Player(props) {
   const playerName = props.playerName;
-
   const hand = props.players[playerName]['hand']
-
-
-  const cardList = hand.map( (card) =>
+  const handCardList = hand.map( (card) =>
     <li key={JSON.stringify(card)} >
       {card.rank}{card.suit}
     </li>
@@ -105,8 +102,8 @@ function Player(props) {
   return (
     <div>
       <h3>Name: {playerName}</h3>
-      <h3>Cards:</h3>
-      <ul>{cardList}</ul>
+      <h3>Hand:</h3>
+      <ul>{handCardList}</ul>
     </div>
   );
 }
