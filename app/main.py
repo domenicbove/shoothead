@@ -14,7 +14,7 @@ deck = []
 # players = []
 players = {}
 
-max_players = 4
+max_players = 10
 pile = []
 # Turn can be an index incrementing thru the playerlist
 

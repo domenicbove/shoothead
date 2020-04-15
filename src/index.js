@@ -65,7 +65,7 @@ class ShootHeadGame extends React.Component {
             <h2>Players Waiting:</h2>
 
             {Object.entries(this.state.players).map( ([key, value]) =>
-              <h4>{key}</h4>
+              <h4 key={key} >{key}</h4>
             )}
 
             <PlayerNameInput
@@ -79,17 +79,36 @@ class ShootHeadGame extends React.Component {
             <h2>Players:</h2>
 
             {Object.entries(this.state.players).map( ([key, value]) =>
-              <h4>{key}</h4>
+              <Player key={key} playerName={key} players={this.state.players} />
             )}
 
-            <DealButton
-              playerName={this.state.playerName} />
-
+            <DealButton playerName={this.state.playerName} />
           </div>
         }
       </div>
     );
   }
+}
+
+function Player(props) {
+  const playerName = props.playerName;
+
+  const hand = props.players[playerName]['hand']
+
+
+  const cardList = hand.map( (card) =>
+    <li key={JSON.stringify(card)} >
+      {card.rank}{card.suit}
+    </li>
+  );
+
+  return (
+    <div>
+      <h3>Name: {playerName}</h3>
+      <h3>Cards:</h3>
+      <ul>{cardList}</ul>
+    </div>
+  );
 }
 
 
@@ -115,14 +134,10 @@ class DealButton extends React.Component {
 
   render() {
     return (
-        <button onClick={this.onClick}>Deal 6</button>
+        <button onClick={this.onClick}>Deal Me 6</button>
     );
   }
 }
-
-
-
-
 
 class PlayerNameInput extends React.Component {
   constructor(props) {
