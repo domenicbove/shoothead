@@ -65,7 +65,7 @@ class ShootHeadGame extends React.Component {
 
   render() {
     const pile = this.state.pile.map( (card) =>
-      <Card key={JSON.stringify(card)} rank={card.rank} suit={card.suit} />
+      <Card key={JSON.stringify(card)} card={card} />
     );
 
     return (
@@ -107,7 +107,7 @@ function Player(props) {
   const playerName = props.playerName;
   const hand = props.players[playerName]['hand']
   const handCardList = hand.map( (card) =>
-    <Card key={JSON.stringify(card)} rank={card.rank} suit={card.suit} />
+    <Card key={JSON.stringify(card)} card={card} />
   );
 
   return (
@@ -121,17 +121,50 @@ function Player(props) {
   );
 }
 
-function Card(props) {
-  let className = '';
-  if (props.suit === '♥' || props.suit === '♦') {
-    className += ' red-card';
+// function Card(props) {
+//   let className = '';
+//   if (props.suit === '♥' || props.suit === '♦') {
+//     className += ' red-card';
+//   }
+//
+//   return (
+//     <button className={className}>
+//       {props.rank}{props.suit}
+//     </button>
+//   );
+// }
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
   }
 
-  return (
-    <button className={className}>
-      {props.rank}{props.suit}
-    </button>
-  );
+  onClick(e) {
+    console.log('Dealing to this player: ' + this.props.playerName);
+
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ 'count': 6, "player": this.props.playerName})
+    // };
+    //
+    // fetch(url_prefix + 'deal', requestOptions)
+    //   .catch(console.log)
+  }
+
+  render() {
+    let className = '';
+    if (this.props.card['suit'] === '♥' || this.props.card['suit'] === '♦') {
+      className += ' red-card';
+    }
+
+    return (
+      <button className={className}>
+        {this.props.card['rank']}{this.props.card['suit']}
+      </button>
+    );
+  }
 }
 
 class DealButton extends React.Component {
