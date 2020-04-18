@@ -94,9 +94,7 @@ function Player(props) {
   const playerName = props.playerName;
   const hand = props.players[playerName]['hand']
   const handCardList = hand.map( (card) =>
-    <li key={JSON.stringify(card)} >
-      {card.rank}{card.suit}
-    </li>
+    <Card key={JSON.stringify(card)} rank={card.rank} suit={card.suit} />
   );
 
   return (
@@ -107,6 +105,20 @@ function Player(props) {
     </div>
   );
 }
+
+function Card(props) {
+  let className = '';
+  if (props.suit === '♥' || props.suit === '♦') {
+    className += ' red-card';
+  }
+
+  return (
+    <button className={className}>
+      {props.rank}{props.suit}
+    </button>
+  );
+}
+
 
 
 class DealButton extends React.Component {
