@@ -11,6 +11,7 @@ class ShootHeadGame extends React.Component {
     this.state = {
       playerName: '',
       players: {},
+      pile: [],
       enteredGame: false
     };
 
@@ -53,9 +54,20 @@ class ShootHeadGame extends React.Component {
         this.setState({players: data })
       })
       .catch(console.log)
+
+    fetch(url_prefix + 'pile')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({pile: data['pile'] })
+      })
+      .catch(console.log)
   }
 
   render() {
+    const pile = this.state.pile.map( (card) =>
+      <Card key={JSON.stringify(card)} rank={card.rank} suit={card.suit} />
+    );
+
     return (
       <div>
         <h1>ShootHead!</h1>
@@ -76,10 +88,13 @@ class ShootHeadGame extends React.Component {
 
         {this.state.enteredGame === true &&
           <div>
-            <h2>Players:</h2>
+            <h2>Pile: {pile}</h2>
 
+            <h2>Players:</h2>
             {Object.entries(this.state.players).map( ([key, value]) =>
-              <Player key={key} playerName={key} players={this.state.players} actualPlayer={this.state.playerName} />
+              <Player key={key} playerName={key}
+                players={this.state.players}
+                actualPlayer={this.state.playerName} />
             )}
           </div>
         }
@@ -98,7 +113,7 @@ function Player(props) {
   return (
     <div>
       <h3>Name: {playerName}</h3>
-      <h3>Hand: {handCardList}</h3>
+      <h4>Hand: {handCardList}</h4>
       {playerName === props.actualPlayer &&
         <DealButton playerName={playerName} />
       }
