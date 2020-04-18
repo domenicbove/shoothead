@@ -79,10 +79,8 @@ class ShootHeadGame extends React.Component {
             <h2>Players:</h2>
 
             {Object.entries(this.state.players).map( ([key, value]) =>
-              <Player key={key} playerName={key} players={this.state.players} />
+              <Player key={key} playerName={key} players={this.state.players} actualPlayer={this.state.playerName} />
             )}
-
-            <DealButton playerName={this.state.playerName} />
           </div>
         }
       </div>
@@ -100,8 +98,10 @@ function Player(props) {
   return (
     <div>
       <h3>Name: {playerName}</h3>
-      <h3>Hand:</h3>
-      <ul>{handCardList}</ul>
+      <h3>Hand: {handCardList}</h3>
+      {playerName === props.actualPlayer &&
+        <DealButton playerName={playerName} />
+      }
     </div>
   );
 }
@@ -118,8 +118,6 @@ function Card(props) {
     </button>
   );
 }
-
-
 
 class DealButton extends React.Component {
   constructor(props) {
@@ -138,7 +136,6 @@ class DealButton extends React.Component {
 
     fetch(url_prefix + 'deal', requestOptions)
       .catch(console.log)
-
   }
 
   render() {
