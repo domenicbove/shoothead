@@ -155,13 +155,13 @@ class Card extends React.Component {
 
   render() {
     let className = '';
-    if (this.props.card['suit'] === '♥' || this.props.card['suit'] === '♦') {
+    if (this.props.card.suit === '♥' || this.props.card.suit === '♦') {
       className += ' red-card';
     }
 
     return (
       <button className={className}>
-        {this.props.card['rank']}{this.props.card['suit']}
+        {this.props.card.rank}{this.props.card.suit}
       </button>
     );
   }
