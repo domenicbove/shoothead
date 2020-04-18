@@ -121,19 +121,6 @@ function Player(props) {
   );
 }
 
-// function Card(props) {
-//   let className = '';
-//   if (props.suit === '♥' || props.suit === '♦') {
-//     className += ' red-card';
-//   }
-//
-//   return (
-//     <button className={className}>
-//       {props.rank}{props.suit}
-//     </button>
-//   );
-// }
-
 class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -141,16 +128,14 @@ class Card extends React.Component {
   }
 
   onClick(e) {
-    console.log('Dealing to this player: ' + this.props.playerName);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.props.card)
+    };
 
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ 'count': 6, "player": this.props.playerName})
-    // };
-    //
-    // fetch(url_prefix + 'deal', requestOptions)
-    //   .catch(console.log)
+    fetch(url_prefix + 'playCard', requestOptions)
+      .catch(console.log)
   }
 
   render() {
@@ -160,7 +145,7 @@ class Card extends React.Component {
     }
 
     return (
-      <button className={className}>
+      <button className={className} onClick={this.onClick}>
         {this.props.card.rank}{this.props.card.suit}
       </button>
     );

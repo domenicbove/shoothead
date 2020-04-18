@@ -112,6 +112,15 @@ def play():
         pile = pile + [card]
     return "ok"
 
+# curl -H "Content-type: application/json" -X POST http://127.0.0.1:8000/playCard -d '{"suit":"♣","rank":"3"}'
+@app.route('/playCard', methods = ['POST'])
+def playCard():
+    global pile
+    card_object = request.json
+    print(card_object)
+    pile = pile + [card_object]
+    return "ok"
+
 # Players need the ability to pick up the pile
 @app.route('/pick_up', methods = ['GET'])
 def pick_up():
